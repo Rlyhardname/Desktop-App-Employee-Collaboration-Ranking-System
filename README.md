@@ -39,5 +39,7 @@ After filtration I Map the records to a Map of employees and A list of employees
 When Two employees contain the same project the program does some checks if the time span of the employees on the project aligns and if 1 day or more they've worked together I return a date. This gets repeated until One employee has checked all other employees and projects
 and everytime there is a match, we add the days to that employee's max days worked on projects with someone. After first employee iterates, we do swap the second with the first, and do the same, to get all his data points untill all employees swap with index 0 and gather their
 dataset. Every employee skips his starting index(before the swap) when iterating to avoid matching himself. Everytime at least 1 day matched we add the data to list<DTO> object that holds the references to the 2 employees and the time they worked on a project. In the end 
-we end up with a dataset with all they matches with all the pairs and the dates per project. Then we run a sort of the dataset by days worked together fill the data to our table to visualize in descending order.
+we end up with a dataset with all they matches with all the pairs and the dates per project. Then we run a sort of the dataset by days worked together fill the data to our table to visualize in descending order.  
+  
+## DEMO: (In the next few days)  
 
