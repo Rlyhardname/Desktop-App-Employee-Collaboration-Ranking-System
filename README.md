@@ -1,9 +1,9 @@
 # Desktop-App-Employee-Collaboration-Ranking-System
 
 Table of contents:
-1 Task and specific requirements
-2 Explanation of my understanding of the problem and the algorithm I used.
-3. DEMO(Will be filmed by the end of 25.12.2023).
+1. Task and specific requirements  
+2. Explanation of my understanding of the problem and the algorithm I used.  
+3. DEMO(Will be filmed by the end of 25.12.2023).  
 
 
 ##TASK:
