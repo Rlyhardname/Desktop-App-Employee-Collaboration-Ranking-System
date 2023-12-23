@@ -8,7 +8,7 @@ import com.sirma.academy.exception.EntityFactoryException;
 import com.sirma.academy.exception.UnsupportedLocalDateFormatException;
 import com.sirma.academy.model.Employee;
 import com.sirma.academy.model.EmployeeProject;
-import com.sirma.academy.model.EntityFactory;
+import com.sirma.academy.model.util.EntityFactory;
 import com.sirma.academy.model.Project;
 
 import java.io.BufferedReader;
