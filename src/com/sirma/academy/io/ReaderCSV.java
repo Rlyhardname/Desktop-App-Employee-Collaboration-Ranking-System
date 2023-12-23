@@ -1,7 +1,7 @@
 package com.sirma.academy.io;
 
 import com.sirma.academy.dao.DAO;
-import com.sirma.academy.dao.DataSourcePool;
+import com.sirma.academy.db.DataSourcePool;
 import com.sirma.academy.dao.ProjectDAO;
 import com.sirma.academy.dao.UserDAO;
 import com.sirma.academy.exception.EntityFactoryException;

@@ -1,11 +1,11 @@
 package com.sirma.academy.gui;
 
-import com.sirma.academy.dao.DataSourceFactory;
-import com.sirma.academy.dao.DataSourcePool;
+import com.sirma.academy.db.DataSourceFactory;
+import com.sirma.academy.db.DataSourcePool;
 import com.sirma.academy.io.CustomReader;
 import com.sirma.academy.io.ReaderCSV;
 import com.mysql.cj.jdbc.MysqlDataSource;
-import com.sirma.academy.dao.DataBaseConfiguration;
+import com.sirma.academy.db.DataBaseConfiguration;
 import com.sirma.academy.model.EmployeeProject;
 
 import javax.swing.*;
