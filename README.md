@@ -6,27 +6,27 @@ Table of contents:
 3. DEMO(Will be filmed by the end of 25.12.2023).  
 
 
-##TASK:
-###Pair of employees who have worked together 
-####Create an application that identifies the pair of employees who have 
-####worked together on common projects for the longest period of time
-####and the time for each of those projects.
-
-##Requirements:
-1 DateTo can be NULL, equivalent to today.
-2 We are interested in the number of days they worked together.
-3 The input data must be loaded to the program from a CSV file.
-4 More than one date format to be supported, extra points will be given if all 
-date formats are supported.
-5 In a README.md file summarize your understanding for the task and your 
-algorithm.
-6 Do not use external libraries CSV parsing.
-7 Follow clean code conventions.
-8 Implement persistence of the data
-9 CRUD for Employees
-
-##Explanation of my understanding of the problem.
-
+## TASK:  
+### Pair of employees who have worked together   
+#### Create an application that identifies the pair of employees who have 
+#### worked together on common projects for the longest period of time
+#### and the time for each of those projects.  
+  
+## Requirements:  
+1. DateTo can be NULL, equivalent to today.  
+2. We are interested in the number of days they worked together.  
+3. The input data must be loaded to the program from a CSV file.  
+4. More than one date format to be supported, extra points will be given if all. 
+date formats are supported.  
+5. In a README.md file summarize your understanding for the task and your
+algorithm.  
+6. Do not use external libraries CSV parsing.  
+7. Follow clean code conventions.  
+8. Implement persistence of the data.  
+9. CRUD for Employees.  
+  
+## Explanation of my understanding of the problem.  
+  
 We will get CSV files with collumns representing empId, projectId, EmployeeStartProject and EmployeeQuit project. We should aim to extract and compare the data of the records so that every Employee that has a matching project with another employee
 should be compared. If they have worked on a common project for any amount of time the the they we would extract the time they worked together, and repeat for every common project they have. The sum of all the data points of our too employees will give us
 the total time they worked together on various projects. In the end we will rank every pair vs every other pair, and the pair with the longest work time on common project is #1 and would get displayed with a list of their individual projects and time on every single project as well
