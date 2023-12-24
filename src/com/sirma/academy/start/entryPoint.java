@@ -1,10 +1,7 @@
 package com.sirma.academy.start;
 
 import com.mysql.cj.jdbc.MysqlDataSource;
-import com.sirma.academy.db.DataBaseConfiguration;
-import com.sirma.academy.db.DataSourceFactory;
-import com.sirma.academy.db.DataSourcePool;
-import com.sirma.academy.db.SeedDBwithData;
+import com.sirma.academy.db.*;
 
 /**
  * <pre>
@@ -17,13 +14,21 @@ public class entryPoint {
     public static void main(String[] args) {
 
         DataSourceFactory dataSourceFactory = new DataSourceFactory(new DataBaseConfiguration(
-                "{name_placeholder}",
-                "{url_placeholder}",
-                "{user_placeholder}",
-                "{password_placeholder}"
+                "finalProjectMock",
+                "jdbc:mysql://localhost/finalProjectMock",
+                "{DB_USER}",
+                "{DB_PASSWORD}"
         ));
+
         MysqlDataSource dataSource = (MysqlDataSource) DataSourcePool.instanceOf(dataSourceFactory.newMysqlDataSource());
-        new SeedDBwithData();
+        try{
+            new SeedDataBase(dataSource,dataSourceFactory.dataBaseConfiguration());
+            new SeedDBwithData();
+        }catch (RuntimeException e) {
+
+        }
+
+
 
     }
 }

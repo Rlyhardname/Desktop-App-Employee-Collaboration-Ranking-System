@@ -2,6 +2,7 @@ package com.sirma.academy.gui;
 
 import com.sirma.academy.db.DataSourceFactory;
 import com.sirma.academy.db.DataSourcePool;
+import com.sirma.academy.db.SeedDataBase;
 import com.sirma.academy.io.CustomReader;
 import com.sirma.academy.io.ReaderCSV;
 import com.mysql.cj.jdbc.MysqlDataSource;
@@ -53,14 +54,20 @@ public class GUI extends JFrame implements CustomReader {
 
     public GUI() {
         dataSourceFactory = new DataSourceFactory(new DataBaseConfiguration(
-                "{name_placeholder}",
-                "{url_placeholder}",
-                "{user_placeholder}",
-                "{password_placeholder}"
+                "finalProjectMock",
+                "jdbc:mysql://localhost/finalProjectMock",
+                "{DB_USER}",
+                "{DB_PASSWORD}"
         ));
         dataSource = (MysqlDataSource) DataSourcePool.instanceOf(dataSourceFactory.newMysqlDataSource());
+        try {
+            // IF any issues make changes in SeedDataBase constructor
+            new SeedDataBase(dataSource, dataSourceFactory.dataBaseConfiguration());
+        } catch (RuntimeException e1){
+            JOptionPane.showMessageDialog(this.getFrame(), "DB seeding error, look inside GUI constructor");
+        }
         reader = new ReaderCSV();
-        // new SeedDBwithData();
+
         init();
     }
 

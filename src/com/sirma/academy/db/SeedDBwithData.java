@@ -8,6 +8,7 @@ import com.sirma.academy.model.util.EntityFactory;
 import com.sirma.academy.model.Project;
 import com.sirma.academy.exception.EntityFactoryException;
 
+import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,6 +42,7 @@ public class SeedDBwithData {
         }
         projectDAO.saveAll(projects);
 
-
     }
+
+
 }
