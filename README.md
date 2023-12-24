@@ -1,9 +1,11 @@
 # Desktop-App-Employee-Collaboration-Ranking-System
 
-Table of contents:
+## Table of contents:
 1. Task and specific requirements  
 2. Explanation of my understanding of the problem and the algorithm I used.  
-3. DEMO(Will be filmed by the end of 25.12.2023).  
+3. DEMO(Will be filmed by the end of 25.12.2023).
+4. INSTRUCTIONS!
+5. Known issues
 
 
 ## TASK:  
@@ -42,4 +44,12 @@ dataset. Every employee skips his starting index(before the swap) when iterating
 we end up with a dataset with all they matches with all the pairs and the dates per project. Then we run a sort of the dataset by days worked together fill the data to our table to visualize in descending order.  
   
 ## DEMO: (In the next few days)  
+
+## INSTRUCTIONS:  
+
+Go to GUI.CLASS and on the first lines of the constructor are the DB configurations. Change DB_Username and DB_password placeholder with the actual username and password of the database. Same for the Entry point console version(Which can just be used for seeding but the GUI does the same).
+
+## Known Issues:  
+
+1. If CRUD select_by_id might throw 2 popups instead of one if employee doesn't exists and he doesn't have any records also.. 
 
