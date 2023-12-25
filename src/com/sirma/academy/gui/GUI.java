@@ -14,6 +14,9 @@ import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.io.File;
+import java.nio.file.FileSystems;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 public class GUI extends JFrame implements CustomReader {
@@ -56,8 +59,8 @@ public class GUI extends JFrame implements CustomReader {
         dataSourceFactory = new DataSourceFactory(new DataBaseConfiguration(
                 "finalProjectMock",
                 "jdbc:mysql://localhost/finalProjectMock",
-                "{DB_USER}",
-                "{DB_PASSWORD}"
+                "root",
+                "dCBZXTf49PcL3L97lWXP"
         ));
         dataSource = (MysqlDataSource) DataSourcePool.instanceOf(dataSourceFactory.newMysqlDataSource());
         try {
@@ -73,20 +76,9 @@ public class GUI extends JFrame implements CustomReader {
 
     private void init() {
         frame = this;
-        fc = new JFileChooser("C:\\") {
-        };
-        fc.setFileFilter(new FileNameExtensionFilter("CSV Files (*.csv)", String.valueOf(new FileFilter() {
-            @Override
-            public boolean accept(File f) {
-                return f.isDirectory() || f.getName().toLowerCase().endsWith(".csv");
-            }
-
-            @Override
-            public String getDescription() {
-                return "CSV Files (*.csv)";
-            }
-
-        })));
+        Path root = FileSystems.getDefault().getPath("").toAbsolutePath();
+        Path filePath = Paths.get(root.toString(),"resources", "MOCK_DATA(3).csv");
+        fc = new JFileChooser(filePath.toString());
         setTitle("A Sample JFrame Window");
 
         // LEFT PANE
