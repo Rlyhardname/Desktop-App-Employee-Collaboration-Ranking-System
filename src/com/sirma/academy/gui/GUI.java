@@ -58,8 +58,8 @@ public class GUI extends JFrame implements CustomReader {
     public GUI() {
         String dataBaseName = "mock";
         dataSourceFactory = new DataSourceFactory(new DataBaseConfiguration(
-                "mock",
-                "jdbc:mysql://localhost/mock",
+                dataBaseName,
+                "jdbc:mysql://localhost/"+dataBaseName,
                 "{DB_USER}",
                 "{DB_PASSWORD}"
         ));

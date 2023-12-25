@@ -45,13 +45,8 @@ public class SeedDataBase {
                 "start_Date DATE NOT NULL, " +
                 "leave_Date DATE, " +
                 "PRIMARY KEY(id), " +
-                "CONSTRAINT constraint_emp_id_update FOREIGN KEY (emp_id) REFERENCES employee(id) ON UPDATE CASCADE, " +
-                "CONSTRAINT constraint_emp_id_delete FOREIGN KEY (emp_id) REFERENCES employee(id) ON DELETE CASCADE, " +
-                "CONSTRAINT constraint_project_id_update FOREIGN KEY (project_id) REFERENCES project(id) ON UPDATE CASCADE, " +
-                "CONSTRAINT constraint_project_id_delete FOREIGN KEY (project_id) REFERENCES project(id) ON DELETE CASCADE)";
-
-
-
+                "CONSTRAINT constraint_emp_id FOREIGN KEY (emp_id) REFERENCES employee(id) ON UPDATE CASCADE ON DELETE CASCADE, " +
+                "CONSTRAINT constraint_project_id FOREIGN KEY (project_id) REFERENCES project(id) ON UPDATE CASCADE ON DELETE CASCADE) ";
 
         if(exists){
             try (Connection connection = dataSource.getConnection();

@@ -149,7 +149,9 @@ public class ButtonAdapter extends MouseAdapter {
                     try{
                         Long newEmpId = Long.parseLong(gui.getUpdateTo().getText());
                         Employee newEmployeeData = EntityFactory.newEmployee(newEmpId);
+                        System.out.println(optEmp.get().getId() + " " + newEmployeeData);
                         userDAO.update(optEmp.get().getId(),newEmployeeData);
+
                         JOptionPane.showMessageDialog(gui.getFrame(), "Id: " +optEmp.get().getId()
                                 + " updated to: " + newEmployeeData.getId());
                     }catch (NumberFormatException ex){

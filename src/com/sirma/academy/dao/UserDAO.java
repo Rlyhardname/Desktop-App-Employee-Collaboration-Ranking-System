@@ -158,13 +158,13 @@ public class UserDAO implements DAO<Employee, Long> {
 
     // Add 1-2 more fields like name and country or phone number to have single update and updateAll crud..
     @Override
-    public void update(Long id, Employee aEmployee) {
+    public void update(Long id, Employee newEmployeeData) {
         String sql = "UPDATE Employee " +
                 "SET id=? " +
                 "WHERE id=?";
         try (Connection connection = dataSource.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-            preparedStatement.setLong(1, aEmployee.getId());
+            preparedStatement.setLong(1, newEmployeeData.getId());
             preparedStatement.setLong(2, id);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
