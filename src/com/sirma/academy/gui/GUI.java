@@ -60,8 +60,8 @@ public class GUI extends JFrame implements CustomReader {
         dataSourceFactory = new DataSourceFactory(new DataBaseConfiguration(
                 "mock",
                 "jdbc:mysql://localhost/mock",
-                "root",
-                "dCBZXTf49PcL3L97lWXP"
+                "{DB_USER}",
+                "{DB_PASSWORD}"
         ));
         dataSource = (MysqlDataSource) DataSourcePool.instanceOf(dataSourceFactory.newMysqlDataSource());
         try {
