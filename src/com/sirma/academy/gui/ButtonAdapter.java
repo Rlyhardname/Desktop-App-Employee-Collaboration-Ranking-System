@@ -86,11 +86,8 @@ public class ButtonAdapter extends MouseAdapter {
             Long id = null;
             try {
                 id = Long.parseLong(gui.getSelect().getText());
-                System.out.println("first blows");
                 EntityDAO DAO = new EmployeeProjectDAO(gui.getDataSource());
-                System.out.println("second blows");
                 list = DAO.mapOfObjects(id);
-                System.out.println("third blows");
 
             } catch (RuntimeException e1) {
                 e1.printStackTrace();

@@ -56,17 +56,18 @@ public class GUI extends JFrame implements CustomReader {
     private JButton seedDb;
 
     public GUI() {
+        String dataBaseName = "mock";
         dataSourceFactory = new DataSourceFactory(new DataBaseConfiguration(
-                "finalProjectMock",
-                "jdbc:mysql://localhost/finalProjectMock",
-                "{DB_USER}",
-                "{DB_PASSWORD}"
+                "mock",
+                "jdbc:mysql://localhost/mock",
+                "root",
+                "dCBZXTf49PcL3L97lWXP"
         ));
         dataSource = (MysqlDataSource) DataSourcePool.instanceOf(dataSourceFactory.newMysqlDataSource());
         try {
             // IF any issues make changes in SeedDataBase constructor
-            new SeedDataBase(dataSource, dataSourceFactory.dataBaseConfiguration());
-        } catch (RuntimeException e1){
+            new SeedDataBase(dataSource, dataSourceFactory.dataBaseConfiguration(), dataBaseName);
+        } catch (RuntimeException e1){e1.printStackTrace();
             JOptionPane.showMessageDialog(this.getFrame(), "DB seeding error, look inside GUI constructor");
         }
         reader = new ReaderCSV();

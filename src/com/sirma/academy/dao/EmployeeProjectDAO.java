@@ -36,12 +36,12 @@ public class EmployeeProjectDAO implements DAO<EmployeeProject, Integer>, Entity
 
     @Override
     public Optional<EmployeeProject> findById(Integer id) {
-        String sql = "SELECT * FROM EmployeeProject " + "WHERE id=?";
+        String sql = "SELECT * FROM Employee_Project " + "WHERE id=?";
         ResultSet rs = null;
         java.lang.Long empId;
         java.lang.Long projectId;
         LocalDate startDate;
-        LocalDate quitDate;
+        LocalDate leaveDate;
         try (Connection connection = dataSource.getConnection(); PreparedStatement prepStatement = connection.prepareStatement(sql)) {
             prepStatement.setLong(1, id);
             rs = prepStatement.executeQuery();
@@ -51,7 +51,7 @@ public class EmployeeProjectDAO implements DAO<EmployeeProject, Integer>, Entity
             empId = rs.getLong(2);
             projectId = rs.getLong(3);
             startDate = rs.getDate(4).toLocalDate();
-            quitDate = rs.getDate(5).toLocalDate();
+            leaveDate = rs.getDate(5).toLocalDate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } finally {
@@ -76,7 +76,7 @@ public class EmployeeProjectDAO implements DAO<EmployeeProject, Integer>, Entity
 
         EmployeeProject employeeProject = null;
         try {
-            employeeProject = EntityFactory.newEmployeeProject(employee.get().getId(), project.get().id(), startDate, quitDate);
+            employeeProject = EntityFactory.newEmployeeProject(employee.get().getId(), project.get().id(), startDate, leaveDate);
         } catch (EntityFactoryException e) {
             return Optional.empty();
         }
@@ -103,7 +103,7 @@ public class EmployeeProjectDAO implements DAO<EmployeeProject, Integer>, Entity
 
     @Override
     public int save(EmployeeProject employeeProject) {
-        String sql = "INSERT INTO employeeProject (id,emp_Id,project_Id,start_Date,quit_Date) " + "VALUES (?,?,?,?,?)";
+        String sql = "INSERT INTO employee_Project (id,emp_Id,project_Id,start_Date,leave_Date) " + "VALUES (?,?,?,?)";
         try (Connection connection = dataSource.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setInt(1, employeeProject.getId());
             preparedStatement.setLong(2, employeeProject.getEmpId());
@@ -122,9 +122,11 @@ public class EmployeeProjectDAO implements DAO<EmployeeProject, Integer>, Entity
                 System.out.println("Something went wrong!");
             }
         } catch (SQLIntegrityConstraintViolationException e) {
+            e.printStackTrace();
             // not sure if this will get thrown
             System.err.println(getClass().getName() + " line 115: " + e.getMessage());
         } catch (SQLException e) {
+            e.printStackTrace();
             throw new RuntimeException(e);
         }
         return 1;
@@ -135,21 +137,21 @@ public class EmployeeProjectDAO implements DAO<EmployeeProject, Integer>, Entity
         if (employeeProjects.size() == 0) {
             return -1;
         }
-        String sql = "INSERT INTO employeeProject (id,emp_Id,project_Id,start_Date,quit_Date)" + "VALUES (?,?,?,?,?)";
+        String sql = "INSERT INTO employee_Project (id,emp_Id,project_Id,start_Date,leave_Date)" + "VALUES (?,?,?,?,?)";
         try (Connection connection = dataSource.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             for (EmployeeProject employeeProject : employeeProjects) {
                 int hash = employeeProject.getId();
                 Long empId = employeeProject.getEmpId();
                 Long projectId = employeeProject.getProjectId();
                 LocalDate startDate = employeeProject.getStartDate();
-                LocalDate quitDate = employeeProject.getLeaveDate();
+                LocalDate leaveDate = employeeProject.getLeaveDate();
 
                 if (empId != null && projectId != null && startDate != null) {
                     preparedStatement.setInt(1, hash);
                     preparedStatement.setLong(2, empId);
                     preparedStatement.setLong(3, projectId);
                     preparedStatement.setDate(4, Date.valueOf(startDate));
-                    preparedStatement.setDate(5, Date.valueOf(quitDate));
+                    preparedStatement.setDate(5, Date.valueOf(leaveDate));
                     preparedStatement.addBatch();
                 }
 
@@ -161,6 +163,7 @@ public class EmployeeProjectDAO implements DAO<EmployeeProject, Integer>, Entity
             }
 
         } catch (SQLIntegrityConstraintViolationException e) {
+            e.printStackTrace();
             System.err.println(getClass().getName() + " line 144: " + e.getMessage());
             System.out.println("Id already exists in DB!");
         } catch (SQLException e) {
@@ -212,7 +215,7 @@ public class EmployeeProjectDAO implements DAO<EmployeeProject, Integer>, Entity
 
     @Override
     public List<EmployeeProject> mapOfObjects(Long id) {
-        String sql = "SELECT * FROM employeeProject " + "WHERE emp_Id=?";
+        String sql = "SELECT * FROM employee_Project " + "WHERE emp_Id=?";
         ResultSet rs = null;
         List<EmployeeProject> employeeProjects = new ArrayList<>();
         try (Connection connection = dataSource.getConnection();
@@ -227,20 +230,22 @@ public class EmployeeProjectDAO implements DAO<EmployeeProject, Integer>, Entity
                     LocalDate leaveDate = rs.getDate(5).toLocalDate();
                     employeeProjects.add(EntityFactory.newEmployeeProject(empId, projectId, startDate, leaveDate));
                 } catch (EntityFactoryException e) {
-                    System.out.println("factory failing");
+                    e.printStackTrace();
                     // log corruptedDB data?
                 } catch (NullPointerException e1) {
-                    System.out.println("second date is null");
+                    e1.printStackTrace();
                 }
             }
 
         } catch (SQLException ex) {
+            ex.printStackTrace();
             throw new RuntimeException(ex);
         } finally {
             if (rs != null) {
                 try {
                     rs.close();
                 } catch (SQLException e) {
+                    e.printStackTrace();
                     throw new RuntimeException(e);
                 }
             }

@@ -69,12 +69,11 @@ public class ProjectDAO implements DAO<Project, Long> {
             }
 
         } catch (SQLIntegrityConstraintViolationException e) {
-            System.err.println(getClass().getName()+ " line 144: "+e.getMessage());
+            e.printStackTrace();
+            System.err.println(getClass().getName()+ " line 73: "+e.getMessage());
             System.out.println("Id already exists in DB!");
         } catch (SQLException e) {
             e.printStackTrace();
-            //System.err.println(getClass().getName()+ " line 147: "+e.getMessage());
-            //throw new RuntimeException(e);
         }
 
         return 1;
@@ -121,6 +120,7 @@ public class ProjectDAO implements DAO<Project, Long> {
             try {
                 rs.close();
             } catch (SQLException e) {
+                e.printStackTrace();
                 throw new RuntimeException(e);
             }
         }

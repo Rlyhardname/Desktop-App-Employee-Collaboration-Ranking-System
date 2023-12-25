@@ -11,8 +11,13 @@ public class DataSourcePool {
         }
         return dataSource;
     }
+
     public static DataSource instanceOf() {
         return dataSource;
+    }
+
+    private static void resetSource() {
+        dataSource = null;
     }
 
 

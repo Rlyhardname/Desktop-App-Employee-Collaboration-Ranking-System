@@ -22,7 +22,7 @@ public class entryPoint {
 
         MysqlDataSource dataSource = (MysqlDataSource) DataSourcePool.instanceOf(dataSourceFactory.newMysqlDataSource());
         try{
-            new SeedDataBase(dataSource,dataSourceFactory.dataBaseConfiguration());
+           // new SeedDataBase(dataSource,dataSourceFactory.dataBaseConfiguration());
             new SeedDBwithData();
         }catch (RuntimeException e) {
 

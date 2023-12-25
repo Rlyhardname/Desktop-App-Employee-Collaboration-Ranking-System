@@ -45,6 +45,7 @@ public class UserDAO implements DAO<Employee, Long> {
                 try {
                     return Optional.of(EntityFactory.newEmployee(id));
                 } catch (EntityFactoryException e) {
+                    e.printStackTrace();
                     System.err.println(getClass().getName() + " line 48: " + e.getMessage());
                     // log e.getMessage()
                 }
@@ -56,6 +57,7 @@ public class UserDAO implements DAO<Employee, Long> {
             try {
                 rs.close();
             } catch (SQLException e) {
+                e.printStackTrace();
                 throw new RuntimeException(e);
             }
 
