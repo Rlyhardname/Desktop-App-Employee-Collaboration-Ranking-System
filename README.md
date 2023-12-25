@@ -35,19 +35,23 @@ the total time they worked together on various projects. In the end we will rank
 ass the total time they worked together.  
   
 ## Algorithms I used.  
-  
-I implemented various filtering stages of the data, to teset if it's elidgeable to be filtered and visualized as well as being coherent with our database so it can be stored.
-After filtration I Map the records to a Map of employees and A list of employees where I compare Every employee with all his projects to every othee employee with all his projects using Map.contains() to avoid iteration over the list of projects every employee has.
-When Two employees contain the same project the program does some checks if the time span of the employees on the project aligns and if 1 day or more they've worked together I return a date. This gets repeated until One employee has checked all other employees and projects
-and everytime there is a match, we add the days to that employee's max days worked on projects with someone. After first employee iterates, we do swap the second with the first, and do the same, to get all his data points untill all employees swap with index 0 and gather their
-dataset. Every employee skips his starting index(before the swap) when iterating to avoid matching himself. Everytime at least 1 day matched we add the data to list<DTO> object that holds the references to the 2 employees and the time they worked on a project. In the end 
-we end up with a dataset with all they matches with all the pairs and the dates per project. Then we run a sort of the dataset by days worked together fill the data to our table to visualize in descending order.  
-  
+
+1. Read records and create Objects and if objects aren't null save to DB.
+2. Optionally(radio button pick) check for referential integrity by checking if both employee key and project key exist. Depending on the current implementation, this step will be redundant based on DB architechture,configurations and constraints.
+3. Map List<CSVRecords> -> Map<Long, Employees>
+4. Map Map<Long, employees> -> List<Employees>
+5. Inject two new datastructures in Service and start the filtering process.
+6. Run for(i) on List<Employees> 0 to Size-1, compare 0 index to every other employee(Comparison Alg*), if they have a matching project and the comparison alg* return > 0 Create dataPoint with (emp1,emp2,days worked together on project). Add dataPoint to list<dataPoints>.
+7. When index 0 from List<Employees> compares with every other index, switch indexies between index 1 and 0. This gets repeated for every employee, so on 3rd iteration index 2 goes to 0 and 0 goes to 2 ect... This way we get all datapoints, for every employee in our dataSet.
+8. Sort dataSet. Depending if we want ascending or descending order later, we read from different end of dataset.
+9. Populate dataGrid and return best result.
+ 
+
 ## DEMO: (In the next few days)  
 
 ## INSTRUCTIONS:  
 
-Go to GUI.CLASS and on the first lines of the constructor are the DB configurations. Change DB_Username and DB_password placeholder with the actual username and password of the database. Same for the Entry point console version(Which can just be used for seeding but the GUI does the same).
+Go to GUI.CLASS and on the first lines of the constructor are the DB configurations. Change DB_Username and DB_password placeholder with the actual username and password of the database.
 
 ## Known Issues:  
 
