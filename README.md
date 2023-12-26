@@ -60,7 +60,10 @@ From Global alg step 6 we find get 2 employees that have at least one matching p
 
 ## INSTRUCTIONS:  
 
-Go to GUI.CLASS and on the first lines of the constructor are the DB configurations. Change DB_Username and DB_password placeholder with the actual username and password of the database.
+1. Go to GUI.CLASS and on the first lines of the constructor are the DB configurations. Change DB_Username and DB_password placeholder with the actual username and password of the database.
+2. After configuring the db settings close the application and restart, if everything went well no error message will popup.
+3. Click the big button " Seed DB with Mock emp and projects 1 to 99 " at the bottom of the screen before importing the provided CSV files or else nothing will get saved to the db.
+4. Click the radio button for saving records to the db below the LOAD CSV button and finally click the load CSV files button.
 
 ## Known Issues:  
 
