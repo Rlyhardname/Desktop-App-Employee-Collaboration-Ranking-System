@@ -20,13 +20,12 @@ public class Application extends GUI {
 
     public static Application start() {
         if (application == null) {
-            return new Application();
+            application = new Application();
         }
         return application;
     }
 
     public Application() {
-
         getSaveRecordsBtn().addMouseListener(new ButtonAdapter(this));
         getLoadCSVbtn().addMouseListener(new ButtonAdapter(this));
         getTable().addMouseListener(new ButtonAdapter(this));
@@ -35,13 +34,13 @@ public class Application extends GUI {
         getBtnInsert().addMouseListener(new ButtonAdapter(this));
         getBtnUpdate().addMouseListener(new ButtonAdapter(this));
         getBtnDelete().addMouseListener(new ButtonAdapter(this));
-
         getRadioDontSave().addItemListener((e) -> {
             if (e.getStateChange() == ItemEvent.SELECTED) {
                 getTextAreaDB().setText("This feature will only load" + System.lineSeparator()
                         + "the CSV files and display" + System.lineSeparator()
                         + "them, but not use the DB");
             }
+
         });
         getRadioSave().addItemListener((e) -> {
             if (e.getStateChange() == ItemEvent.SELECTED) {
@@ -50,6 +49,7 @@ public class Application extends GUI {
                         + "to the DB and display after. " + System.lineSeparator()
                         + "It will produce some buffer wait time.");
             }
+
         });
         getRadioButtonDontCleanEntries().addItemListener((e) -> {
             if (e.getStateChange() == ItemEvent.SELECTED) {
@@ -58,6 +58,7 @@ public class Application extends GUI {
                         + "for anything before it" + System.lineSeparator()
                         + "displays the data.");
             }
+
         });
         getRadioCleanEntries().addItemListener((e) -> {
             if (e.getStateChange() == ItemEvent.SELECTED) {
@@ -70,6 +71,7 @@ public class Application extends GUI {
                         + "and will exclude the record " + System.lineSeparator()
                         + "from the presentation ");
             }
+
         });
 
     }
@@ -105,16 +107,18 @@ public class Application extends GUI {
             if (!mapOfProjects.containsKey(key)) {
                 mapOfProjects.put(key, 0L);
             }
+
             mapOfProjects.put(key, mapOfProjects.get(key) + service.getDays(projectsEmpOne.get(key), projectsEmpTwo.get(key)));
         }
+
         for (var visualizeProjects : mapOfProjects.entrySet()) {
             getArea().setText(sb.append("  ProjectId " + visualizeProjects.getKey() + " | Duration " + visualizeProjects.getValue() + System.lineSeparator()).toString());
         }
 
-        getTable().setModel(new DefaultTableModel(fillRows(), fillColls()));
+        getTable().setModel(new DefaultTableModel(fillRows(), fillCols()));
     }
 
-    private Object[] fillColls() {
+    private Object[] fillCols() {
         return new Object[]{
                 "Row_Number:",
                 "Employee_One_Id",
@@ -133,6 +137,7 @@ public class Application extends GUI {
             data[row][3] = dataSet.get(i).days();
             row++;
         }
+
         return data;
     }
 
@@ -146,6 +151,7 @@ public class Application extends GUI {
             //log.append("Open command cancelled by user." + newline);
             return null;
         }
+
         String URI;
         try {
             URI = file.getCanonicalPath();

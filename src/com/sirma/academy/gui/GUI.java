@@ -70,8 +70,8 @@ public class GUI extends JFrame implements CustomReader {
         } catch (RuntimeException e1){e1.printStackTrace();
             JOptionPane.showMessageDialog(this.getFrame(), "DB seeding error, look inside GUI constructor");
         }
-        reader = new ReaderCSV();
 
+        reader = new ReaderCSV();
         init();
     }
 

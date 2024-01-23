@@ -72,6 +72,7 @@ public class ButtonAdapter extends MouseAdapter {
                     index += index - 1;
                     gui.populateTable(index);
                 }
+
             } catch (NullPointerException e1) {
                 JOptionPane.showMessageDialog(gui.getFrame(), "Empty row or column");
             }
@@ -107,9 +108,8 @@ public class ButtonAdapter extends MouseAdapter {
                     }
 
                 }
-                System.out.println(sb.toString());
-                gui.getArea().setText(sb.toString());
 
+                gui.getArea().setText(sb.toString());
             } else {
                 DAO userDAO = new UserDAO(gui.getDataSource());
                 if (userDAO.existsById(id)) {
@@ -129,6 +129,7 @@ public class ButtonAdapter extends MouseAdapter {
                 if (isSuccess == -1) {
                     JOptionPane.showMessageDialog(gui.getFrame(), "Id already exists in DB!");
                 }
+
             } catch (EntityFactoryException ex) {
 
                 JOptionPane.showMessageDialog(gui.getFrame(), "Creation ERROR");
@@ -142,27 +143,25 @@ public class ButtonAdapter extends MouseAdapter {
             try {
                 Long id = Long.parseLong(gui.getUpdateFrom().getText());
                 Optional<Employee> optEmp = userDAO.findById(id);
-                if(!optEmp.isPresent()){
+                if (!optEmp.isPresent()) {
                     JOptionPane.showMessageDialog(gui.getFrame(), "Id doesn't exists in DB!");
-                }
-                else{
-                    try{
+                } else {
+                    try {
                         Long newEmpId = Long.parseLong(gui.getUpdateTo().getText());
                         Employee newEmployeeData = EntityFactory.newEmployee(newEmpId);
                         System.out.println(optEmp.get().getId() + " " + newEmployeeData);
-                        userDAO.update(optEmp.get().getId(),newEmployeeData);
+                        userDAO.update(optEmp.get().getId(), newEmployeeData);
 
-                        JOptionPane.showMessageDialog(gui.getFrame(), "Id: " +optEmp.get().getId()
+                        JOptionPane.showMessageDialog(gui.getFrame(), "Id: " + optEmp.get().getId()
                                 + " updated to: " + newEmployeeData.getId());
-                    }catch (NumberFormatException ex){
+                    } catch (NumberFormatException ex) {
                         JOptionPane.showMessageDialog(gui.getFrame(), "Not valid ID!");
-                    }catch (EntityFactoryException ex1){
+                    } catch (EntityFactoryException ex1) {
                         JOptionPane.showMessageDialog(gui.getFrame(), "Internal error");
                     }
 
                 }
             } catch (EntityFactoryException ex) {
-
                 JOptionPane.showMessageDialog(gui.getFrame(), "Creation ERROR");
             } catch (NumberFormatException ex1) {
                 JOptionPane.showMessageDialog(gui.getFrame(), "Id not valid!");
@@ -171,18 +170,19 @@ public class ButtonAdapter extends MouseAdapter {
             // DELETE CRUD
         } else if (source == gui.getBtnDelete()) {
             DAO userDAO = new UserDAO(gui.getDataSource());
-            try{
+            try {
                 Long id = Long.parseLong(gui.getDelete().getText());
                 int isSuccess = userDAO.deleteById(id);
-                if(isSuccess==1){
+                if (isSuccess == 1) {
                     JOptionPane.showMessageDialog(gui.getFrame(), "Successfully deleted!");
-                }else{
+                } else {
                     JOptionPane.showMessageDialog(gui.getFrame(), "User with such an ID doesn't exist!");
                 }
-            }catch (NumberFormatException e1){
+            } catch (NumberFormatException e1) {
                 JOptionPane.showMessageDialog(gui.getFrame(), "Id not valid!");
             }
 
         }
+
     }
 }
