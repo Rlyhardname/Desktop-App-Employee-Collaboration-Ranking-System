@@ -34,6 +34,9 @@ public class Application extends GUI {
         getBtnInsert().addMouseListener(new ButtonAdapter(this));
         getBtnUpdate().addMouseListener(new ButtonAdapter(this));
         getBtnDelete().addMouseListener(new ButtonAdapter(this));
+        getTruncateEmployeeProjects().addMouseListener(new ButtonAdapter(this));
+        getTruncateEmployee().addMouseListener(new ButtonAdapter(this));
+        getTruncateProjects().addMouseListener(new ButtonAdapter(this));
         getRadioDontSave().addItemListener((e) -> {
             if (e.getStateChange() == ItemEvent.SELECTED) {
                 getTextAreaDB().setText("This feature will only load" + System.lineSeparator()

@@ -47,7 +47,7 @@ public class ProjectDAO implements DAO<Project, Long> {
 
     @Override
     public int saveAll(List<Project> projects) {
-        if (projects.size()==0) {
+        if (projects.size() == 0) {
             return -1;
         }
         String sql = "INSERT INTO Project (id)" +
@@ -65,12 +65,12 @@ public class ProjectDAO implements DAO<Project, Long> {
 
             int[] batchSize = preparedStatement.executeBatch();
             if (batchSize.length != projects.size()) {
-                System.out.println(getClass().getName()+ " line 142: Some records weren't saved!");
+                System.out.println(getClass().getName() + " line 142: Some records weren't saved!");
             }
 
         } catch (SQLIntegrityConstraintViolationException e) {
             e.printStackTrace();
-            System.err.println(getClass().getName()+ " line 73: "+e.getMessage());
+            System.err.println(getClass().getName() + " line 73: " + e.getMessage());
             System.out.println("Id already exists in DB!");
         } catch (SQLException e) {
             e.printStackTrace();
@@ -113,9 +113,9 @@ public class ProjectDAO implements DAO<Project, Long> {
             }
 
         } catch (SQLException e) {
-            System.err.println(getClass().getName()+ " line 91: "+e.getMessage());
+            System.err.println(getClass().getName() + " line 91: " + e.getMessage());
             //throw when id doesn't exist.
-          //  throw new RuntimeException(e);
+            //  throw new RuntimeException(e);
         } finally {
             try {
                 rs.close();
@@ -128,5 +128,20 @@ public class ProjectDAO implements DAO<Project, Long> {
         return false;
     }
 
+    @Override
+    public void truncate() {
+        String disableChecks = "SET FOREIGN_KEY_CHECKS=0";
+        String enableChecks = "SET FOREIGN_KEY_CHECKS=1";
+        String sql = "TRUNCATE TABLE project";
+        try (Connection con = dataSource.getConnection();
+             Statement prep = con.createStatement()) {
+            prep.addBatch(disableChecks);
+            prep.addBatch(sql);
+            prep.addBatch(enableChecks);
+            prep.executeBatch();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 }

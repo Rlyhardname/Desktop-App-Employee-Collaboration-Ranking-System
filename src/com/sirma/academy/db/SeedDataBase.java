@@ -47,6 +47,7 @@ public class SeedDataBase {
                 "PRIMARY KEY(id), " +
                 "CONSTRAINT constraint_emp_id FOREIGN KEY (emp_id) REFERENCES employee(id) ON UPDATE CASCADE ON DELETE CASCADE, " +
                 "CONSTRAINT constraint_project_id FOREIGN KEY (project_id) REFERENCES project(id) ON UPDATE CASCADE ON DELETE CASCADE) ";
+        String setDefaultSchema = "USE "+ dataBaseName;
 
         if(exists){
             try (Connection connection = dataSource.getConnection();
@@ -54,6 +55,7 @@ public class SeedDataBase {
                 statement.addBatch(createTableEmployee);
                 statement.addBatch(createProject);
                 statement.addBatch(employee_Project);
+                statement.addBatch(setDefaultSchema);
                 statement.executeBatch();
 
 

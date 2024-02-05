@@ -1,5 +1,6 @@
 package com.sirma.academy.dao;
 
+import com.mysql.cj.jdbc.ConnectionImpl;
 import com.sirma.academy.model.Employee;
 import com.sirma.academy.model.EmployeeProject;
 import com.sirma.academy.model.util.EntityFactory;
@@ -214,6 +215,18 @@ public class EmployeeProjectDAO implements DAO<EmployeeProject, Integer>, Entity
     }
 
     @Override
+    public void truncate() {
+        String sql = "TRUNCATE TABLE Employee_Project";
+        try(Connection con = dataSource.getConnection();
+        PreparedStatement prep = con.prepareStatement(sql)){
+            prep.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    @Override
     public List<EmployeeProject> mapOfObjects(Long id) {
         String sql = "SELECT * FROM employee_Project " + "WHERE emp_Id=?";
         ResultSet rs = null;
@@ -253,4 +266,5 @@ public class EmployeeProjectDAO implements DAO<EmployeeProject, Integer>, Entity
 
         return employeeProjects;
     }
+
 }

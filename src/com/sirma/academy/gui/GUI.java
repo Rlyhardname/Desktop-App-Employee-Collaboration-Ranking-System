@@ -10,10 +10,7 @@ import com.sirma.academy.db.DataBaseConfiguration;
 import com.sirma.academy.model.EmployeeProject;
 
 import javax.swing.*;
-import javax.swing.filechooser.FileFilter;
-import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
-import java.io.File;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -54,20 +51,24 @@ public class GUI extends JFrame implements CustomReader {
     private JButton btnUpdate;
     private JButton btnDelete;
     private JButton seedDb;
+    private JButton truncateEmployeeProjects;
+    private JButton truncateEmployee;
+    private JButton truncateProjects;
 
     public GUI() {
         String dataBaseName = "mock";
         dataSourceFactory = new DataSourceFactory(new DataBaseConfiguration(
                 dataBaseName,
-                "jdbc:mysql://localhost/"+dataBaseName,
-                "{DB_USER}",
-                "{DB_PASSWORD}"
+                "jdbc:mysql://localhost/" + dataBaseName,
+                "root",
+                "dCBZXTf49PcL3L97lWXP"
         ));
         dataSource = (MysqlDataSource) DataSourcePool.instanceOf(dataSourceFactory.newMysqlDataSource());
         try {
             // IF any issues make changes in SeedDataBase constructor
             new SeedDataBase(dataSource, dataSourceFactory.dataBaseConfiguration(), dataBaseName);
-        } catch (RuntimeException e1){e1.printStackTrace();
+        } catch (RuntimeException e1) {
+            e1.printStackTrace();
             JOptionPane.showMessageDialog(this.getFrame(), "DB seeding error, look inside GUI constructor");
         }
 
@@ -78,7 +79,7 @@ public class GUI extends JFrame implements CustomReader {
     private void init() {
         frame = this;
         Path root = FileSystems.getDefault().getPath("").toAbsolutePath();
-        Path filePath = Paths.get(root.toString(),"resources", "MOCK_DATA(3).csv");
+        Path filePath = Paths.get(root.toString(), "resources", "MOCK_DATA(3).csv");
         fc = new JFileChooser(filePath.toString());
         setTitle("A Sample JFrame Window");
 
@@ -139,6 +140,9 @@ public class GUI extends JFrame implements CustomReader {
         btnUpdate = new JButton("UPDATE employee FROM - TO by ID");
         btnDelete = new JButton("DELETE employee by ID");
         seedDb = new JButton("Seed DB with Mock emp and projects 1 to 99");
+        truncateEmployeeProjects = new JButton("Delete all entries from records table");
+        truncateEmployee = new JButton("Delete all employees");
+        truncateProjects = new JButton("Delete all projects");
 
         // CRUD text field customization
         select = new JTextField();
@@ -181,6 +185,15 @@ public class GUI extends JFrame implements CustomReader {
         crud.add(seedDb);
         mid.add(crud);
         this.getContentPane().add(mid);
+
+        // truncate EmployeeProjects
+        crud.add(truncateEmployeeProjects);
+
+        // truncate employees
+        crud.add(truncateEmployee);
+
+        // truncate projects
+        crud.add(truncateProjects);
 
         // RIGHT PANEL
         table.setDefaultEditor(Object.class, null);
@@ -413,6 +426,30 @@ public class GUI extends JFrame implements CustomReader {
 
     public void setUpdateTo(JTextField updateTo) {
         this.updateTo = updateTo;
+    }
+
+    public JButton getTruncateEmployeeProjects() {
+        return truncateEmployeeProjects;
+    }
+
+    public void setTruncateEmployeeProjects(JButton truncateEmployeeProjects) {
+        this.truncateEmployeeProjects = truncateEmployeeProjects;
+    }
+
+    public JButton getTruncateEmployee() {
+        return truncateEmployee;
+    }
+
+    public void setTruncateEmployee(JButton truncateEmployee) {
+        this.truncateEmployee = truncateEmployee;
+    }
+
+    public JButton getTruncateProjects() {
+        return truncateProjects;
+    }
+
+    public void setTruncateProjects(JButton truncateProjects) {
+        this.truncateProjects = truncateProjects;
     }
 }
 

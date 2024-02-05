@@ -5,6 +5,7 @@ import com.sirma.academy.model.util.EntityFactory;
 import com.sirma.academy.exception.EntityFactoryException;
 
 import javax.sql.DataSource;
+import javax.swing.plaf.nimbus.State;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -245,5 +246,22 @@ public class UserDAO implements DAO<Employee, Long> {
         }
 
         return false;
+    }
+
+    @Override
+    public void truncate() {
+        String disableChecks = "SET FOREIGN_KEY_CHECKS=0";
+        String enableChecks = "SET FOREIGN_KEY_CHECKS=1";
+        String sql = "TRUNCATE TABLE employee";
+        try(Connection con = dataSource.getConnection();
+            Statement prep = con.createStatement()){
+            prep.addBatch(disableChecks);
+            prep.addBatch(sql);
+            prep.addBatch(enableChecks);
+            prep.executeBatch();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 }

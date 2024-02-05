@@ -77,12 +77,33 @@ public class ButtonAdapter extends MouseAdapter {
                 JOptionPane.showMessageDialog(gui.getFrame(), "Empty row or column");
             }
 
-            // Seed DB with emp and projects
-        } else if (source == gui.getSeedDb()) {
+
+        }
+        // Seed DB with emp and projects
+        else if (source == gui.getSeedDb()) {
             new SeedDBwithData();
 
-            // SELECT CRUD
-        } else if (source == gui.getBtnSelect()) {
+
+        }
+        // Truncate employeeProject records
+        else if (source == gui.getTruncateEmployeeProjects()) {
+            DAO employeeProject = new EmployeeProjectDAO(gui.getDataSource());
+            employeeProject.truncate();
+
+        }
+        // Truncate employee records
+        else if (source == gui.getTruncateEmployee()) {
+            DAO employeeDAO = new UserDAO(gui.getDataSource());
+            employeeDAO.truncate();
+        }
+        // Truncate project records
+        else if (source == gui.getTruncateProjects()) {
+            DAO projectDAO = new ProjectDAO(gui.getDataSource());
+            projectDAO.truncate();
+        }
+
+        // SELECT CRUD
+        else if (source == gui.getBtnSelect()) {
             List<EmployeeProject> list = new ArrayList<>();
             Long id = null;
             try {

@@ -28,4 +28,6 @@ public interface DAO<T,S> {
     void deleteAll(List<T> objects);
 
     boolean existsById(S id);
+
+    void truncate();
 }
